@@ -60,8 +60,7 @@ pub fn get_copy_from_commands(from: &str, files: &[String], app_dir: &str) -> Ve
 }
 
 pub fn get_exec_command(command: &str) -> String {
-    // let params = command.replace('\"', "\\\"");
-    let params_quote_split = command.split("\"").collect::<Vec<&str>>();
+    let params_quote_split = command.split('\"').collect::<Vec<&str>>();
 
     let mut params_space_split = Vec::new();
 

@@ -58,8 +58,17 @@ pub fn get_copy_from_commands(from: &str, files: &[String], app_dir: &str) -> Ve
             .collect()
     }
 }
+    /*
+    let params = command.replace('\"', "\\\"");
 
+    format!("CMD [\"{params}\"]")
+    */
+    
 pub fn get_exec_command(command: &str) -> String {
+    let params = command.replace('\"', "\\\"");
+
+    format!("CMD [\"{params}\"]")
+    /*
     let params_quote_split = command.split('\"').collect::<Vec<&str>>();
 
     let mut params_space_split = Vec::new();
@@ -77,8 +86,9 @@ pub fn get_exec_command(command: &str) -> String {
             params_space_split.push(arg);
         }
     }
-    
-    format!("CMD {:?}", params_space_split)
+   
+    format!("CMD {params_space_split:?}")
+    */
 }
 
 #[cfg(test)]
@@ -165,13 +175,27 @@ mod tests {
             get_exec_command("command1")
         );
 
+        /*
         assert_eq!(
             "CMD [\"command1\", \"command2\"]".to_string(),
             get_exec_command("command1 command2")
         );
+        */
+        
+        assert_eq!(
+            "CMD [\"command1 command2\"]".to_string(),
+            get_exec_command("command1 command2")
+        );
 
+        /*
         assert_eq!(
             "CMD [\"command1\", \"command2\", \"-l\", \"asdf\"]".to_string(),
+            get_exec_command("command1 command2 -l \"asdf\"")
+        );
+        */
+        
+        assert_eq!(
+            "CMD [\"command1 command2 -l \\\"asdf\\\"\"]".to_string(),
             get_exec_command("command1 command2 -l \"asdf\"")
         );
     }

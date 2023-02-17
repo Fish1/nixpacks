@@ -62,6 +62,8 @@ impl ImageBuilder for DockerImageBuilder {
             .generate_dockerfile(&self.options, env, &output, file_server_config)
             .context("Generating Dockerfile for plan")?;
 
+        // println!("{}", dockerfile);
+
         // If printing the Dockerfile, don't write anything to disk
         if self.options.print_dockerfile {
             println!("{dockerfile}");

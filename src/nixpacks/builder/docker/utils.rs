@@ -58,37 +58,9 @@ pub fn get_copy_from_commands(from: &str, files: &[String], app_dir: &str) -> Ve
             .collect()
     }
 }
-    /*
-    let params = command.replace('\"', "\\\"");
-
-    format!("CMD [\"{params}\"]")
-    */
     
 pub fn get_exec_command(command: &str) -> String {
-    let params = command.replace('\"', "\\\"");
-
-    format!("CMD [\"{params}\"]")
-    /*
-    let params_quote_split = command.split('\"').collect::<Vec<&str>>();
-
-    let mut params_space_split = Vec::new();
-
-    for (index, arg) in params_quote_split.iter().enumerate() {
-        let arg = arg.trim();
-        if arg.is_empty() {
-            continue;
-        }
-
-        if index % 2 == 0 {
-            let mut split = arg.split_ascii_whitespace().collect::<Vec<&str>>();
-            params_space_split.append(&mut split);
-        } else {
-            params_space_split.push(arg);
-        }
-    }
-   
-    format!("CMD {params_space_split:?}")
-    */
+    format!("CMD {command}")
 }
 
 #[cfg(test)]

@@ -194,11 +194,9 @@ impl DockerfileGenerator for BuildPlan {
             .clone()
             .unwrap_or_else(|| DEFAULT_BASE_IMAGE.to_string());
 
-        // ENTRYPOINT [\"/bin/bash\", \"-l\", \"-c\"]
         let dockerfile = formatdoc! {"
             FROM {base_image}
 
-            ENTRYPOINT [\"/bin/bash\", \"-l\", \"-c\"]
             WORKDIR {APP_DIR}
 
             {setup_copy_cmds}
@@ -308,11 +306,9 @@ impl DockerfileGenerator for StartPhase {
                 );
 
                 // RUN true to prevent a Docker bug https://github.com/moby/moby/issues/37965#issuecomment-426853382
-                // ENTRYPOINT [\"/bin/bash\", \"-l\", \"-c\"]
                 formatdoc! {"
                   # start
                   FROM {run_image}
-                  ENTRYPOINT [\"/bin/bash\", \"-l\", \"-c\"]
                   WORKDIR {APP_DIR}
                   COPY --from=0 /etc/ssl/certs /etc/ssl/certs
                   RUN true
